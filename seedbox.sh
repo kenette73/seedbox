@@ -6,7 +6,7 @@ sudo apt-get update
 echo "Serveur mis à jour"
 
 # Installations des paquets nécessaires
-apt-get install -y subversion autoconf automake curl gcc g++	
+apt-get install -y build-essential subversion autoconf automake curl gcc g++	
 
 echo "Paquets installés"
 
@@ -23,7 +23,7 @@ rm -R /xmlrpc-c
 echo "Xmlrpc installé"
 
 # Installation des pacquets pour Rtorrent et Libtorrent
-apt-get install -y git-core libtool libncurses5
+apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev
 
 echo "Paquets installés"
 
@@ -36,8 +36,9 @@ cd rtorrent
 make
 make install
 make check
-#make clean
+make clean
 
+echo " Rtorrent installé"
 
 
 # Installation et compilation de Libtorrent
