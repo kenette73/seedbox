@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Vérifications des mise à jour
-#sudo apt-get update
+sudo apt-get update
 
-#echo "Serveur mis à jour"
+echo "Serveur mis à jour"
 
 # Installations des paquets nécessaires
 apt-get install -y subversion autoconf automake curl gcc g++	
