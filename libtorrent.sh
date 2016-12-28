@@ -1,5 +1,5 @@
 # Installation des pacquets pour Rtorrent et Libtorrent
-apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev pkg-config
+apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev libssl-dev pkg-config
 
 echo "Paquets installés"
 
@@ -12,7 +12,6 @@ cd libtorrent
 make
 make install
 make clean
-make distclean
 rm -R /tmp/libtorrent
 
 echo "Libtorrent installée"
