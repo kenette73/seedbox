@@ -31,6 +31,7 @@ echo "Paquets installés"
 cd /tmp
 git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
+./autogen.sh
 ./configure
 make
 make install
