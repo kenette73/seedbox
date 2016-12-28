@@ -27,18 +27,29 @@ apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-op
 
 echo "Paquets installés"
 
-# Installation et compilation de Rtorrent
+# Installation et compilation de Libtorrent
 cd /tmp
-git clone https://github.com/rakshasa/rtorrent.git
-cd rtorrent
-./autogen.sh
-./configure --with-xmlrpc-c
+git clone https://github.com/rakshasa/libtorrent.git
+./configure
 make
 make install
-make check
 make clean
+make distclean
 
-echo " Rtorrent installé"
+echo "Libtorrent installée"
+
+# Installation et compilation de Rtorrent
+#cd /tmp
+#git clone https://github.com/rakshasa/rtorrent.git
+#cd rtorrent
+#./autogen.sh
+#./configure --with-xmlrpc-c
+#make
+#make install
+#make check
+#make clean
+
+#echo " Rtorrent installé"
 
 
 # Installation et compilation de Libtorrent
