@@ -30,6 +30,7 @@ echo "Paquets installés"
 # Installation et compilation de Libtorrent
 cd /tmp
 git clone https://github.com/rakshasa/libtorrent.git
+cd libtorrent
 ./configure
 make
 make install
