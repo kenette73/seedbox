@@ -23,7 +23,7 @@ rm -R /tmp/xmlrpc-c
 echo "Xmlrpc installé"
 
 # Installation des pacquets pour Rtorrent et Libtorrent
-apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev
+apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev pkg-config
 
 echo "Paquets installés"
 
