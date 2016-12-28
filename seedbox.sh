@@ -18,7 +18,7 @@ cd xmlrpc-c/
 make
 make install
 make clean
-rm -R /xmlrpc-c
+rm -R /tmp/xmlrpc-c
 
 echo "Xmlrpc installé"
 
@@ -36,6 +36,7 @@ make
 make install
 make clean
 make distclean
+rm -R /tmp/libtorrent
 
 echo "Libtorrent installée"
 
@@ -49,10 +50,6 @@ echo "Libtorrent installée"
 #make install
 #make check
 #make clean
+#rm -R /tmp/rotrrent
 
 #echo " Rtorrent installé"
-
-
-# Installation et compilation de Libtorrent
-
-
