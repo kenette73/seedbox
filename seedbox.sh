@@ -32,7 +32,7 @@ cd /tmp
 git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
 ./autogen.sh
-./configure
+./configure --without-zlib
 make
 make install
 make clean
