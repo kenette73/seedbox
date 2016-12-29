@@ -28,5 +28,5 @@ apt-get install -y rtorrent patch
 echo "Rtorrent installé installés"
 
 # Configurations de Rtorrent
-cp /usr/share/doc/rtorrent/examples/rtorrent.rc /home/$USER/.rtorrent.rc
-patch /home/$USER/.rtorrent.rc < /tmp/seedbox/config/.rtorrent.rc
+cp /tmp/seedbox/config/.rtorrent.rc /home/$USER/.rtorrent.rc
+chmod $USER:$USER /home/$USER/.rtorrent.rc
