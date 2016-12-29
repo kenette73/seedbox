@@ -22,35 +22,11 @@ rm -R /tmp/xmlrpc-c
 
 echo "Xmlrpc installé"
 
-# Installation des pacquets pour Rtorrent et Libtorrent
-apt-get install -y git-core libtool libncurses5-dev libncursesw5-dev libcurl4-openssl-dev libcppunit-dev pkg-config
+# Installation des pacquets pour Rtorrent
+apt-get install -y rtorrent patch
 
-echo "Paquets installés"
+echo "Rtorrent installé installés"
 
-# Installation et compilation de Libtorrent
-cd /tmp
-git clone https://github.com/rakshasa/libtorrent.git
-cd libtorrent
-./autogen.sh
-./configure --without-zlib
-make
-make install
-make clean
-make distclean
-rm -R /tmp/libtorrent
-
-echo "Libtorrent installée"
-
-# Installation et compilation de Rtorrent
-#cd /tmp
-#git clone https://github.com/rakshasa/rtorrent.git
-#cd rtorrent
-#./autogen.sh
-#./configure --with-xmlrpc-c
-#make
-#make install
-#make check
-#make clean
-#rm -R /tmp/rotrrent
-
-#echo " Rtorrent installé"
+# Configurations de Rtorrent
+cp /usr/share/doc/rtorrent/examples/rtorrent.rc /home/torrent/.rtorrent.rc
+patch /home/torrent/.rtorrent.rc < /tmp/seedbox/config/.rtorrent.rc
