@@ -5,10 +5,19 @@ sudo apt-get update
 
 echo "Serveur mis à jour"
 
+# Include
+Dir="include"
+. $include/adduser.sh
+
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++	
 
 echo "Paquets installés"
+
+# Installation des pacquets pour Rtorrent
+apt-get install -y rtorrent screen
+
+echo "Rtorrent & Screen installé installés"
 
 # Installation de Xmlrpc
 cd /tmp
@@ -17,8 +26,6 @@ cd xmlrpc-c/
 ./configure --disable-wininet-client --disable-libwww-client --disable-abyss-server
 make
 make install
-make clean
-rm -R /tmp/xmlrpc-c
 
 echo "Xmlrpc installé"
 
@@ -28,5 +35,5 @@ apt-get install -y rtorrent patch
 echo "Rtorrent installé installés"
 
 # Configurations de Rtorrent
-cp /tmp/seedbox/config/.rtorrent.rc /home/$USER/.rtorrent.rc
-chmod $USER:$USER /home/$USER/.rtorrent.rc
+cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/torrent/.rtorrent.rc
+chmod $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
