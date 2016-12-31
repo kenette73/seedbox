@@ -19,6 +19,13 @@ apt-get install -y rtorrent screen
 
 echo "Rtorrent & Screen installé installés"
 
+# Configuration de Rtorrent
+
+cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
+chmod +x /etc/init.d/rtorrent
+update-rc.d rtorrent defaults 99
+sed -i 's/foo/$new_user/g'
+
 # Installation de Xmlrpc
 cd /tmp
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
