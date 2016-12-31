@@ -24,7 +24,9 @@ echo "Rtorrent & Screen installé installés"
 cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
 chmod +x /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
-sed -i 's/foo/$new_user/g'
+sed -i 's/utilisateur/$new_user/g' /etc/init.d/rtorrent
+
+echo 'Rtorrent configuré'
 
 # Installation de Xmlrpc
 cd /tmp
@@ -35,12 +37,3 @@ make
 make install
 
 echo "Xmlrpc installé"
-
-# Installation des pacquets pour Rtorrent
-apt-get install -y rtorrent patch
-
-echo "Rtorrent installé installés"
-
-# Configurations de Rtorrent
-cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/torrent/.rtorrent.rc
-chmod $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
