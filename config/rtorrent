@@ -21,7 +21,7 @@
 ##Start Configuration##
 #######################
 # system user to run as (can only use one)
-user=user
+user=utilisateur
 
 # config file(s) separate multiple with newlines
 config="/home/$user/.rtorrent.rc"
@@ -41,7 +41,7 @@ options=""
 base=/home/${user}
 
 # name of screen session, no whitespace allowed
-srnname=rtorrent
+srnname=rtorrent_screen
 #######################
 ###END CONFIGURATION###
 #######################
