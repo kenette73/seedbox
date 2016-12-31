@@ -12,5 +12,10 @@ chmod -R $new_user:$new_user /home/$new_user
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
+#
 #service ssh reload
 
+# Création du fichier de configuration de rtorrent
+cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/torrent/.rtorrent.rc
+chmod $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
+sed -i 's/user/$new_user/g' /home/$new_user/.rtorrent.rc
