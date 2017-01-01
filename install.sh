@@ -19,10 +19,11 @@ apt-get install -y build-essential subversion autoconf automake curl gcc g++ rto
 echo "Paquets installés"
 
 # Configuration de Rtorrent
+echo 'new user est $new_user'
 cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
 chmod +x /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
-sed -i 's/utilisateur/"$new_user"/g' /etc/init.d/rtorrent
+sed -i 's/utilisateur/$new_user/g' /etc/init.d/rtorrent
 
 echo 'Rtorrent configuré'
 
