@@ -6,9 +6,9 @@ sudo apt-get update
 echo "Serveur mis à jour"
 
 # Include
-#Dir="include"
-. /include/adduser.sh
-. /include/apache.sh
+DIR="include"
+. "$DIR"/adduser.sh
+. "$DIR"/apache.sh
 
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
@@ -46,8 +46,8 @@ echo "Xmlrpc installé"
 # Installation de Rutorrent
 cd /var/www/html
 git clone https://github.com/Novik/ruTorrent
-mkdir /var/www/html/ruTorrent/conf/users/$new_user
+mkdir /var/www/html/ruTorrent/conf/users/$new_user/
 cp /tmp/seedbox/config/config.php /var/www/html/ruTorrent/conf/users/$new_user/config.php
 cp /tmp/seedbox/config/plugins.ini /var/www/html/ruTorrent/conf/users/$new_user/plugins.ini
-chown -R www-data:www-data /var/www/html/ruTorrent
+chown -R www-data:www-data /var/www/html/ruTorrent/
 #rm -R /var/www/html/ruTorrent/plugins/*
