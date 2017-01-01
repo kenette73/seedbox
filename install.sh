@@ -8,11 +8,31 @@ echo "Serveur mis à jour"
 # Include
 DIR="include"
 . "$DIR"/variables.sh
-. "$DIR"/adduser.sh
+#. "$DIR"/adduser.sh
 . "$DIR"/apache.sh
 
 # Log Installation
 exec > >(tee "/tmp/seedbox/install.log") 2>&1
+
+# Création de l'utilisateur et des répertoires
+read -p 'Choisissez un nom d utilisateur:' new_user
+read -p 'Choisissez un mot de passe:' new_pass
+useradd $new_user -p $new_pass
+mkdir /home/$new_user/
+mkdir /home/$new_user/watch/
+mkdir /home/$new_user/torrent/
+mkdir /home/$new_user/sesion/
+chown -R $new_user:$new_user /home/$new_user
+
+# Interdiction connection ssh
+#Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
+#
+#service ssh reload
+
+# Création du fichier de configuration de rtorrent
+cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/.rtorrent.rc
+chown $new_user:$new_user /home/$new_user/.rtorrent.rc
+sed -i 's/user/$new_user/g' /home/$new_user/.rtorrent.rc
 
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
