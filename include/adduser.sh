@@ -16,6 +16,6 @@ chown -R $new_user:$new_user /home/$new_user
 #service ssh reload
 
 # Création du fichier de configuration de rtorrent
-cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/torrent/.rtorrent.rc
-chown $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
+cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/.rtorrent.rc
+chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 sed -i 's/user/$new_user/g' /home/$new_user/.rtorrent.rc
