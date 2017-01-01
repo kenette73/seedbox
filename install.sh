@@ -11,22 +11,12 @@ DIR="include"
 . "$DIR"/apache.sh
 
 # Log Installation
-exec > >(tee "/tmp/install.log") 2>&1
+exec > >(tee "/tmp/seedbox/install.log") 2>&1
 
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
 
 echo "Paquets installés"
-
-# Installation des paquets pour Rtorrent
-#apt-get install -y rtorrent screen
-
-#echo "Rtorrent & Screen installé installés"
-
-# Suppression de la version de xmlrpc-c
-apt-get remove xmlrpc-c
-
-echo "Xmlrpc-c Supprimé"
 
 # Configuration de Rtorrent
 cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
@@ -37,14 +27,14 @@ sed -i 's/utilisateur/$new_user/g' /etc/init.d/rtorrent
 echo 'Rtorrent configuré'
 
 # Installation de Xmlrpc
-cd /tmp
-svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-cd xmlrpc-c/
-./configure --disable-wininet-client --disable-libwww-client --disable-abyss-server
-make
-make install
+#cd /tmp
+#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+#cd xmlrpc-c/
+#./configure --disable-wininet-client --disable-libwww-client --disable-abyss-server
+#make
+#make install
 
-echo "Xmlrpc installé"
+#echo "Xmlrpc installé"
 
 # Installation de Rutorrent
 cd /var/www/html
