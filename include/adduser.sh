@@ -8,7 +8,7 @@ mkdir /home/$new_user/
 mkdir /home/$new_user/watch/
 mkdir /home/$new_user/torrent/
 mkdir /home/$new_user/sesion/
-chmod -R $new_user:$new_user /home/$new_user
+chown -R $new_user:$new_user /home/$new_user
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
@@ -17,5 +17,5 @@ chmod -R $new_user:$new_user /home/$new_user
 
 # Création du fichier de configuration de rtorrent
 cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/torrent/.rtorrent.rc
-chmod $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
+chown $new_user:$new_user /home/$new_user/torrent/.rtorrent.rc
 sed -i 's/user/$new_user/g' /home/$new_user/.rtorrent.rc
