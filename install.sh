@@ -10,6 +10,9 @@ DIR="include"
 . "$DIR"/adduser.sh
 . "$DIR"/apache.sh
 
+# Log Installation
+exec > >(tee "/tmp/install.log") 2>&1
+
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
 
