@@ -7,6 +7,7 @@ echo "Serveur mis à jour"
 
 # Include
 DIR="include"
+. "$DIR"/variables.sh
 . "$DIR"/adduser.sh
 . "$DIR"/apache.sh
 
