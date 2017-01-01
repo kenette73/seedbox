@@ -6,21 +6,26 @@ sudo apt-get update
 echo "Serveur mis à jour"
 
 # Include
-Dir="include"
-. $include/adduser.sh
+#Dir="include"
+. /include/adduser.sh
+. /include/apache.sh
 
 # Installations des paquets nécessaires
-apt-get install -y build-essential subversion autoconf automake curl gcc g++	
+apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
 
 echo "Paquets installés"
 
-# Installation des pacquets pour Rtorrent
-apt-get install -y rtorrent screen
+# Installation des paquets pour Rtorrent
+#apt-get install -y rtorrent screen
 
-echo "Rtorrent & Screen installé installés"
+#echo "Rtorrent & Screen installé installés"
+
+# Suppression de la version de xmlrpc-c
+apt-get remove xmlrpc-c
+
+echo "Xmlrpc-c Supprimé"
 
 # Configuration de Rtorrent
-
 cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
 chmod +x /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
@@ -37,3 +42,12 @@ make
 make install
 
 echo "Xmlrpc installé"
+
+# Installation de Rutorrent
+cd /var/www/html
+git clone https://github.com/Novik/ruTorrent
+mkdir /var/www/html/ruTorrent/conf/users/$new_user
+cp /tmp/seedbox/config/config.php /var/www/html/ruTorrent/conf/users/$new_user/config.php
+cp /tmp/seedbox/config/plugins.ini /var/www/html/ruTorrent/conf/users/$new_user/plugins.ini
+chown -R www-data:www-data /var/www/html/ruTorrent
+#rm -R /var/www/html/ruTorrent/plugins/*
