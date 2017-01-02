@@ -60,6 +60,6 @@ git clone https://github.com/Novik/ruTorrent
 mkdir $CONF/$new_user
 cp /tmp/seedbox/config/* $CONF/$new_user/
 sed -i 's/@user/'$new_user'/g' $CONF/$new_user/config.php
-sed -i 's/@port/'$new_user'/g' $CONF/$new_user/config.php
+sed -i 's/@port/5000/g' $CONF/$new_user/config.php
 chown -R www-data:www-data $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
