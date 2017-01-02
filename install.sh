@@ -1,14 +1,16 @@
 #!/bin/bash
 
+#Installations des depots pour Fmpeg
+apt-get install -y software-properties-common
+apt-add-repository "deb http://www.deb-multimedia.org jessie main non-free"
+
 # Vérifications des mise à jour
 sudo apt-get update
-
 echo "Serveur mis à jour"
 
 # Include
 DIR="include"
 . "$DIR"/variables.sh
-#. "$DIR"/adduser.sh
 . "$DIR"/apache.sh
 
 # Log Installation
@@ -32,7 +34,11 @@ chown $NEW_USER:$NEW_USER /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@user/'$NEW_USER'/g' /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$NEW_USER/.rtorrent.rc
 
-# Installations des paquets nécessaires
+#Installations des depots pour Fmpeg
+apt-get install -y software-properties-common
+
+
+# Installations des paquets nécessaires à Rtorrent et Rutorrent
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip
 
 echo "Paquets installés"
@@ -44,16 +50,6 @@ update-rc.d rtorrent defaults 99
 sed -i 's/@user/'$NEW_USER'/g' $RTORRENT
 
 echo 'Rtorrent configuré'
-
-# Installation de Xmlrpc
-#cd /tmp
-#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-#cd xmlrpc-c/
-#./configure --disable-wininet-client --disable-libwww-client --disable-abyss-server
-#make
-#make install
-
-#echo "Xmlrpc installé"
 
 # Installation de Rutorrent
 cd $WWW
