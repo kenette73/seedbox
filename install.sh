@@ -32,7 +32,7 @@ chown -R $new_user:$new_user /home/$new_user
 # Création du fichier de configuration de rtorrent
 cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/.rtorrent.rc
 chown $new_user:$new_user /home/$new_user/.rtorrent.rc
-sed -i 's/user/$new_user/g' /home/$new_user/.rtorrent.rc
+sed -i 's/user/'$new_user'/g' /home/$new_user/.rtorrent.rc
 
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen
@@ -40,11 +40,10 @@ apt-get install -y build-essential subversion autoconf automake curl gcc g++ rto
 echo "Paquets installés"
 
 # Configuration de Rtorrent
-echo 'new user est $new_user'
 cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
 chmod +x /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
-sed -i 's/utilisateur/$new_user/g' /etc/init.d/rtorrent
+sed -i 's/utilisateur/'$new_user'/g' /etc/init.d/rtorrent
 
 echo 'Rtorrent configuré'
 
