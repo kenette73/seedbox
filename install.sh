@@ -15,21 +15,22 @@ DIR="include"
 exec > >(tee "/tmp/seedbox/install.log") 2>&1
 
 # Création de l'utilisateur et des répertoires
-read -p 'Choisissez un nom d utilisateur:' new_user
+read -p 'Choisissez un nom d utilisateur:' NEW_USER
 #read -p 'Choisissez un mot de passe:' new_pass
 #useradd $new_user -p $new_pass
-mkdir -p /home/$new_user/{watch,torrents,.session}
-chown -R $new_user:$new_user /home/$new_user
-chmod 755 /home/$new_user
+mkdir -p /home/NEW_USER/{watch,torrents,.session}
+chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
+chmod 755 /home/$NEW_USER
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
 #service ssh reload
 
 # Création du fichier de configuration de rtorrent
-cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
-chown $new_user:$new_user /home/$new_user/.rtorrent.rc
-sed -i 's/@user/'$new_user'/g' /home/$new_user/.rtorrent.rc
+cp /tmp/seedbox/.rtorrent.rc /home/$NEW_USER/.rtorrent.rc
+chown $NEW_USER:$NEW_USER /home/$NEW_USER/.rtorrent.rc
+sed -i 's/@user/'$NEW_USER'/g' /home/$NEW_USER/.rtorrent.rc
+sed -i 's/@port/5000/g' /home/$NEW_USER/.rtorrent.rc
 
 # Installations des paquets nécessaires
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip
@@ -40,7 +41,7 @@ echo "Paquets installés"
 cp /tmp/seedbox/rtorrent $RTORRENT
 chmod +x $RTORRENT
 update-rc.d rtorrent defaults 99
-sed -i 's/@user/'$new_user'/g' $RTORRENT
+sed -i 's/@user/'$NEW_USER'/g' $RTORRENT
 
 echo 'Rtorrent configuré'
 
@@ -57,9 +58,9 @@ echo 'Rtorrent configuré'
 # Installation de Rutorrent
 cd $WWW
 git clone https://github.com/Novik/ruTorrent
-mkdir $CONF/$new_user
-cp /tmp/seedbox/config/* $CONF/$new_user/
-sed -i 's/@user/'$new_user'/g' $CONF/$new_user/config.php
-sed -i 's/@port/5000/g' $CONF/$new_user/config.php
+mkdir $CONF/$NEW_USER
+cp /tmp/seedbox/config/* $CONF/$NEW_USER/
+sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
+sed -i 's/@port/5000/g' $CONF/$NEW_USER/config.php
 chown -R www-data:www-data $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
