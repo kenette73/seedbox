@@ -24,10 +24,10 @@
   $saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
 	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
 
-  $topDirectory = '/user';			// Upper available directory. Absolute path with trail slash.
+  $topDirectory = '/@user';			// Upper available directory. Absolute path with trail slash.
 	$forbidUserSettings = false;
 
-  $scgi_port = 5001;
+  $scgi_port = @port;
 	$scgi_host = "127.0.0.1";
 	
   // For web->rtorrent link through unix domain socket 
