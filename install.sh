@@ -62,7 +62,7 @@ cd /var/www/html
 git clone https://github.com/Novik/ruTorrent
 mkdir /var/www/html/ruTorrent/conf/users/$new_user/
 cp /tmp/seedbox/config/config.php /var/www/html/ruTorrent/conf/users/$new_user/config.php
-sed -i 's/user/'$new_user'/g' /$ruTorrent/conf/users/$new_user/config.php
+sed -i 's/user/'$new_user'/g' /var/www/html/ruTorrent/conf/users/$new_user/config.php
 cp /tmp/seedbox/config/plugins.ini /var/www/html/ruTorrent/conf/users/$new_user/plugins.ini
 chown -R www-data:www-data /var/www/html/ruTorrent/
 #rm -R /var/www/html/ruTorrent/plugins/*
