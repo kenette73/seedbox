@@ -27,7 +27,7 @@ chmod 755 /home/$new_user
 #service ssh reload
 
 # Création du fichier de configuration de rtorrent
-cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/.rtorrent.rc
+cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
 chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 sed -i 's/user/'$new_user'/g' /home/$new_user/.rtorrent.rc
 
@@ -37,7 +37,7 @@ apt-get install -y build-essential subversion autoconf automake curl gcc g++ rto
 echo "Paquets installés"
 
 # Configuration de Rtorrent
-cp /tmp/seedbox/config/rtorrent $RTORRENT
+cp /tmp/seedbox/rtorrent $RTORRENT
 chmod +x $RTORRENT
 update-rc.d rtorrent defaults 99
 sed -i 's/utilisateur/'$new_user'/g' $RTORRENT
@@ -58,8 +58,9 @@ echo 'Rtorrent configuré'
 cd $WWW
 git clone https://github.com/Novik/ruTorrent
 mkdir /var/www/html/ruTorrent/conf/users/$new_user
-cp /tmp/seedbox/config/config.php $RUTORRENT/conf/users/$new_user/config.php
+cp /tmp/seedbox/config.php $RUTORRENT/conf/users/$new_user/config.php
 sed -i 's/user/'$new_user'/g' $RUTORRENT/conf/users/$new_user/config.php
-cp /tmp/seedbox/config/plugins.ini $RUTORRENT/conf/users/$new_user/plugins.ini
+cp /tmp/seedbox/plugins.ini $RUTORRENT/conf/users/$new_user/plugins.ini
+cp /tmp/seedbox/access.ini $RUTORRENT/conf/users/$new_user/access.ini
 chown -R www-data:www-data $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
