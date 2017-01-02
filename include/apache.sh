@@ -1,9 +1,9 @@
 # Installations d'apache 
-apt-get install -y apache2 apache2.2-common apache2-utils libapache2-mod-scgi
+apt-get install -y apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
 
 echo "Apache installé"
 
-a2enmod ssl
+a2enmod ssl proxy_scgi
 service apache2 force-reload
 
 # Création du certificat ssl
