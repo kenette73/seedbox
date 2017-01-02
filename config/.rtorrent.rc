@@ -1,4 +1,4 @@
-scgi_port = 127.0.0.1:@PORT@
+scgi_port = 127.0.0.1:5001
 encoding_list = UTF-8
 port_range = 45000-65000
 port_random = no
