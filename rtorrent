@@ -30,7 +30,7 @@
 ##Start Configuration##
 #######################
 # system user to run as (can only use one)
-user=utilisateur
+user=@user
 
 # config file(s) separate multiple with newlines
 config="/home/$user/.rtorrent.rc"
