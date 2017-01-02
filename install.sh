@@ -19,14 +19,13 @@ read -p 'Choisissez un nom d utilisateur:' new_user
 read -p 'Choisissez un mot de passe:' new_pass
 useradd $new_user -p $new_pass
 mkdir /home/$new_user/
-mkdir /home/$new_user/watch/
-mkdir /home/$new_user/torrent/
-mkdir /home/$new_user/sesion/
+mkdir /home/$new_user/watch
+mkdir /home/$new_user/torrents
+mkdir /home/$new_user/.session
 chown -R $new_user:$new_user /home/$new_user
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
-#
 #service ssh reload
 
 # Création du fichier de configuration de rtorrent
