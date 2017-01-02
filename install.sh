@@ -16,12 +16,9 @@ exec > >(tee "/tmp/seedbox/install.log") 2>&1
 
 # Création de l'utilisateur et des répertoires
 read -p 'Choisissez un nom d utilisateur:' new_user
-read -p 'Choisissez un mot de passe:' new_pass
-useradd $new_user -p $new_pass
-mkdir /home/$new_user/
-mkdir /home/$new_user/watch
-mkdir /home/$new_user/torrents
-mkdir /home/$new_user/.session
+#read -p 'Choisissez un mot de passe:' new_pass
+#useradd $new_user -p $new_pass
+mkdir -p /home/$new_user/{watch,torrents,.session}
 chown -R $new_user:$new_user /home/$new_user
 chmod 755 /home/$new_user
 
@@ -40,10 +37,10 @@ apt-get install -y build-essential subversion autoconf automake curl gcc g++ rto
 echo "Paquets installés"
 
 # Configuration de Rtorrent
-cp /tmp/seedbox/config/rtorrent /etc/init.d/rtorrent
-chmod +x /etc/init.d/rtorrent
+cp /tmp/seedbox/config/rtorrent $RTORRENT
+chmod +x $RTORRENT
 update-rc.d rtorrent defaults 99
-sed -i 's/utilisateur/'$new_user'/g' /etc/init.d/rtorrent
+sed -i 's/utilisateur/'$new_user'/g' $RTORRENT
 
 echo 'Rtorrent configuré'
 
@@ -58,11 +55,11 @@ echo 'Rtorrent configuré'
 #echo "Xmlrpc installé"
 
 # Installation de Rutorrent
-cd /var/www/html
+cd '$WWW'
 git clone https://github.com/Novik/ruTorrent
-mkdir /var/www/html/ruTorrent/conf/users/$new_user/
-cp /tmp/seedbox/config/config.php /var/www/html/ruTorrent/conf/users/$new_user/config.php
-sed -i 's/user/'$new_user'/g' /var/www/html/ruTorrent/conf/users/$new_user/config.php
-cp /tmp/seedbox/config/plugins.ini /var/www/html/ruTorrent/conf/users/$new_user/plugins.ini
-chown -R www-data:www-data /var/www/html/ruTorrent/
+mkdir /var/www/html/ruTorrent/conf/users/$new_user
+cp /tmp/seedbox/config/config.php '$RUTORRENT'/conf/users/$new_user/config.php
+sed -i 's/user/'$new_user'/g' $RUTORRENT/conf/users/$new_user/config.php
+cp /tmp/seedbox/config/plugins.ini $RUTORRENT/conf/users/$new_user/plugins.ini
+chown -R www-data:www-data $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
