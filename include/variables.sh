@@ -6,3 +6,4 @@
 RUTORRENT="/var/www/html/ruTorrent"
 RTORRENT="/etc/init.d/rtorrent"
 WWW="/var/www/html"
+CONF="/var/www/html/ruTorrent/conf/users"
