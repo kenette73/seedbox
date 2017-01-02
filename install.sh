@@ -33,7 +33,7 @@ sed -i 's/@user/'$NEW_USER'/g' /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$NEW_USER/.rtorrent.rc
 
 # Installations des paquets nécessaires
-apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip
+apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unzip
 
 echo "Paquets installés"
 
