@@ -18,7 +18,7 @@ exec > >(tee "/tmp/seedbox/install.log") 2>&1
 read -p 'Choisissez un nom d utilisateur:' NEW_USER
 #read -p 'Choisissez un mot de passe:' new_pass
 #useradd $new_user -p $new_pass
-mkdir -p /home/NEW_USER/{watch,torrents,.session}
+mkdir -p /home/$NEW_USER/{watch,torrents,.session}
 chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
 chmod 755 /home/$NEW_USER
 
