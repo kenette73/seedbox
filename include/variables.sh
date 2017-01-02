@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Variables definit par l'utilisateur
+# Variables pour l'utilisateur
 
-# Liste des variables
-
+# Variables répertoires
+RUTORRENT="/var/www/html/ruTorrent"
+RTORRENT="/etc/init.d/rtorrent"
+WWW="/var/www/html"
