@@ -1,13 +1,13 @@
-scgi_port = 127.0.0.1:5001
+scgi_port = 127.0.0.1:@port
 encoding_list = UTF-8
 port_range = 45000-65000
 port_random = no
 check_hash = no
-directory = /home/user/torrents
-session = /home/user/.session
+directory = /home/@user/torrents
+session = /home/@user/.session
 encryption = allow_incoming, try_outgoing, enable_retry
-schedule = watch_directory,1,1,"load_start=/home/user/watch/*.torrent"
-schedule = untied_directory,5,5,"stop_untied=/home/user/watch/*.torrent"
+schedule = watch_directory,1,1,"load_start=/home/@user/watch/*.torrent"
+schedule = untied_directory,5,5,"stop_untied=/home/@user/watch/*.torrent"
 schedule = espace_disque_insuffisant,1,30,close_low_diskspace=500M
 use_udp_trackers = yes
 dht = off
@@ -17,4 +17,4 @@ max_peers = 100
 min_peers_seed = 10
 max_peers_seed = 50
 max_uploads = 15
-execute = {sh,-c,/usr/bin/php /var/www/html/ruTorrent/php/initplugins.php user &}
+execute = {sh,-c,/usr/bin/php /var/www/html/ruTorrent/php/initplugins.php @user &}
