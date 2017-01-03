@@ -56,7 +56,7 @@ cd $WWW
 git clone https://github.com/Novik/ruTorrent
 mkdir $CONF/$NEW_USER
 cp /tmp/seedbox/config/* $CONF/$NEW_USER/
-#sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
+sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
 sed -i 's/@port/5000/g' $CONF/$NEW_USER/config.php
 chown -R www-data:www-data $RUTORRENT
 chmod -R 755 $RUTORRENT
