@@ -22,7 +22,9 @@ read -p 'Choisissez un nom d utilisateur:' NEW_USER
 #passwd $NEW_USER
 mkdir -p /home/$NEW_USER/{watch,torrents,.session}
 chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
-chmod 755 /home/$NEW_USER
+chmod -R 755 /home/$NEW_USER
+
+echo ' utilisateur crée'
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
@@ -34,6 +36,8 @@ chown $NEW_USER:$NEW_USER /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@user/'$NEW_USER'/g' /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$NEW_USER/.rtorrent.rc
 sed -i 's/@rutorrent/'$RUTORRENT'/g' /home/$NEW_USER/.rtorrent.rc
+
+echo 'Rtorrent configuré'
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip
