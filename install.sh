@@ -18,8 +18,8 @@ exec > >(tee "/tmp/seedbox/install.log") 2>&1
 
 # Création de l'utilisateur et des répertoires
 read -p 'Choisissez un nom d utilisateur:' NEW_USER
-#read -p 'Choisissez un mot de passe:' new_pass
-#useradd $new_user -p $new_pass
+#useradd -m $NEW_USER
+#passwd $NEW_USER
 mkdir -p /home/$NEW_USER/{watch,torrents,.session}
 chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
 chmod 755 /home/$NEW_USER
@@ -59,4 +59,5 @@ cp /tmp/seedbox/config/* $CONF/$NEW_USER/
 #sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
 sed -i 's/@port/5000/g' $CONF/$NEW_USER/config.php
 chown -R www-data:www-data $RUTORRENT
+chmod -R 755 $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
