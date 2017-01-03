@@ -17,4 +17,4 @@ max_peers = 100
 min_peers_seed = 10
 max_peers_seed = 50
 max_uploads = 15
-execute = {sh,-c,/usr/bin/php /var/www/html/ruTorrent/php/initplugins.php @user &}
+execute = {sh,-c,/usr/bin/php @rutorrent/php/initplugins.php @user &}
