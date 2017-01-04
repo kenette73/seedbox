@@ -14,7 +14,7 @@ echo "Serveur mis à jour"
 # Création de l'utilisateur et des répertoires
 read -p 'Choisissez un nom d utilisateur:' NEW_USER
 useradd -m $NEW_USER
-#passwd $NEW_USER
+passwd $NEW_USER
 mkdir -p /home/$NEW_USER/{watch,torrents,.session}
 chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
 chmod -R 755 /home/$NEW_USER
