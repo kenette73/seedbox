@@ -53,12 +53,11 @@ echo 'Rtorrent configuré'
 # Installation de Rutorrent
 cd $WWW
 git clone https://github.com/Novik/ruTorrent rutorrent
-#mkdir $CONF/$NEW_USER
-rm $CONF/config.php
-cp /tmp/seedbox/config/config.php $CONF/$NEW_USER
-cp /tmp/seedbox/config/plugins.ini $CONF/$NEW_USER
-sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USERconfig.php
-sed -i 's/@port/5000/g' $CONF/$NEW_USERconfig.php
+mkdir $CONF/$NEW_USER
+cp /tmp/seedbox/config/config.php $CONF/$NEW_USER/
+cp /tmp/seedbox/config/plugins.ini $CONF/$NEW_USER/
+sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
+sed -i 's/@port/5000/g' $CONF/$NEW_USER/config.php
 chown -R www-data:www-data $RUTORRENT
 chmod -R 755 $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
