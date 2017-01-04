@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Log Installation
+exec > >(tee "/tmp/seedbox/install.log") 2>&1
+
 #Installations des depots pour ffmpeg
 apt-get install -y software-properties-common
 apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main non-free contrib"
@@ -8,17 +11,9 @@ apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main n
 sudo apt-get update
 echo "Serveur mis à jour"
 
-# Include
-DIR="include"
-. "$DIR"/variables.sh
-. "$DIR"/apache.sh
-
-# Log Installation
-exec > >(tee "/tmp/seedbox/install.log") 2>&1
-
 # Création de l'utilisateur et des répertoires
 read -p 'Choisissez un nom d utilisateur:' NEW_USER
-#useradd -m $NEW_USER
+useradd -m $NEW_USER
 #passwd $NEW_USER
 mkdir -p /home/$NEW_USER/{watch,torrents,.session}
 chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
@@ -29,6 +24,11 @@ echo ' utilisateur crée'
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
 #service ssh reload
+
+# Include
+DIR="include"
+. "$DIR"/variables.sh
+. "$DIR"/apache.sh
 
 # Création du fichier de configuration de rtorrent
 cp /tmp/seedbox/.rtorrent.rc /home/$NEW_USER/.rtorrent.rc
@@ -55,9 +55,13 @@ cd $WWW
 git clone https://github.com/Novik/ruTorrent rutorrent
 #mkdir $CONF/$NEW_USER
 rm $CONF/config.php
-cp /tmp/seedbox/config/config.php $CONF/
-sed -i 's/@user/'$NEW_USER'/g' $CONF/config.php
-sed -i 's/@port/5000/g' $CONF/config.php
+cp /tmp/seedbox/config/config.php $CONF/$NEW_USER
+cp /tmp/seedbox/config/plugins.ini $CONF/$NEW_USER
+sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USERconfig.php
+sed -i 's/@port/5000/g' $CONF/$NEW_USERconfig.php
 chown -R www-data:www-data $RUTORRENT
 chmod -R 755 $RUTORRENT
 #rm -R /var/www/html/ruTorrent/plugins/*
+
+#Démarrage de rtorrent
+service rtorrent start
