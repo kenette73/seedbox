@@ -7,12 +7,12 @@ a2enmod ssl proxy_scgi auth_digest
 service apache2 force-reload
 
 # Création du certificat ssl
-mkdir /etc/apche2/ssl
+mkdir /etc/apache2/ssl
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/rutorrent.pem -out /etc/apache2/ssl/rutorrent.pem
 chmod 600 /etc/apache2/ssl/rutorrent.pem
 
 # Accès Rutorrent
-cp /tmp/seedox/config/rutorrent.conf /etc/apache2/sites-available/
+cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/
 a2ensite rutorrent
 rm /etc/apache2/ports.conf
 cp /tmp/seedbox/config/ports.conf /etc/apache2/
