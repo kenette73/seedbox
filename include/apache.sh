@@ -3,13 +3,22 @@ apt-get install -y apache2 apache2.2-common apache2-utils libapache2-mod-scgi li
 
 echo "Apache installé"
 
-a2enmod ssl proxy_scgi
+a2enmod ssl proxy_scgi auth_digest
 service apache2 force-reload
 
 # Création du certificat ssl
-#cd /etc/ssl
-#openssl genrsa -out server.key 2048
-#openssl req -new -key server.key -out server.csr
+mkdir /etc/apche2/ssl
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/rutorrent.pem -out /etc/apache2/ssl/rutorrent.pem
+chmod 600 /etc/apache2/ssl/rutorrent.pem
 
-# Signature du certificat ssl
-#openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+# Accès Rutorrent
+cp /tmp/seedox/config/rutorrent.conf /etc/apache2/sites-available/
+a2ensite rutorrent
+rm /etc/apache2/ports.conf
+cp /tmp/seedbox/config/ports.conf /etc/apache2/
+
+# Créations de l'utilisateur
+sudo htdigest -c /etc/apache2/.htpasswd rutorrent $NEW_USER
+
+# Redémarrage Apache2
+service apache2 restart
