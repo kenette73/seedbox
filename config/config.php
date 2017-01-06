@@ -21,7 +21,7 @@
   $do_diagnostic = true;
 	$log_file = '/tmp/errors.log';		// path to log file (comment or leave blank to disable logging)
 
-  $saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
+  $saveUploadedTorrents = false;		// Save uploaded torrents to profile/torrents directory or not
 	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
 
   $topDirectory = '/home/@user';			// Upper available directory. Absolute path with trail slash.
@@ -40,7 +40,7 @@
   $XMLRPCMountPoint = "/RPC2";		// DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
 	$pathToExternals = array(
 
-    "php" 	=> '',			// Something like /usr/bin/php. If empty, will be found in PATH.
+    "php" 	=> '/usr/bin/php',			// Something like /usr/bin/php. If empty, will be found in PATH.
 		"curl"	=> '/usr/bin/curl',			// Something like /usr/bin/curl. If empty, will be found in PATH.
 		"gzip"	=> '/usr/bin/gzip',			// Something like /usr/bin/gzip. If empty, will be found in PATH.
 		"id"	=> '/usr/bin/id',			// Something like /usr/bin/id. If empty, will be found in PATH.
