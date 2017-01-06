@@ -2,7 +2,7 @@
 
 # Dépendance : screen, killall et rtorrent
 ### BEGIN INIT INFO
-# Provides:          @USER@-rtorrent
+# Provides:          @user-rtorrent
 # Required-Start:    $syslog $network
 # Required-Stop:     $syslog $network
 # Default-Start:     2 3 4 5
