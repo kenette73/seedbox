@@ -12,20 +12,19 @@
 
 ## Début configuration ##
 user="kenette"
-screen="$user_rtorrent"
 command="rtorrent"
 ## Fin configuration ##
 
 case "$1" in
     start)
         # Placez ici les commandes à exécuter uniquement au lancement du script
-        su -u $user -c screen -dmS $screen $command
+        su -u $user -c screen -dmS $user-$command $command
         echo 'Le script a été lançé !'
     ;;
 
     stop)
         # Placez ici les commandes à exécuter uniquement à l'arrêt du script
-        screen -S $screen -p 0 -X stuff `printf "reload\r"`
+        screen -S $user-$command -p 0 -X stuff `printf "reload\r"`
         echo 'Le script a été arrêté !'
     ;;
 
