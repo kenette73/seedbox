@@ -12,7 +12,7 @@
 
 ## Début configuration ##
 user="kenette"
-name="rtorrent2"
+name="rtorrent"
 ## Fin configuration ##
 
 case "$1" in
