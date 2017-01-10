@@ -1,0 +1,39 @@
+#!/bin/sh   
+
+# Dépendance : screen, killall et rtorrent
+### BEGIN INIT INFO
+# Provides:          @user-rtorrent
+# Required-Start:    $syslog $network
+# Required-Stop:     $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Start-Stop rtorrent user session
+### END INIT INFO
+
+## Début configuration ##
+user="kenette"
+name="rtorrent2"
+## Fin configuration ##
+
+case "$1" in
+    start)
+        # Placez ici les commandes à exécuter uniquement au lancement du script
+        su -u $user -c screen -dmS rtorrent
+        echo 'Le script a été lançé !'
+    ;;
+
+    stop)
+        # Placez ici les commandes à exécuter uniquement à l'arrêt du script
+        killall -u $user -e $name
+        echo 'Le script a été arrêté !'
+    ;;
+
+    *)
+        # On indique ici comment utiliser le script, c'est dans le cas où le script est appelé sans argument ou avec un argument invalide
+        echo 'Usage: /etc/init.d/$name {start|stop}'
+        exit 1
+    ;;
+esac
+
+exit 0
