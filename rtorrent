@@ -11,7 +11,7 @@
 ### END INIT INFO
 
 ## Début configuration ##
-user="kenette"
+user="@user"
 command="rtorrent"
 ## Fin configuration ##
 
