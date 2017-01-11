@@ -19,18 +19,18 @@ case "$1" in
     start)
         # Placez ici les commandes à exécuter uniquement au lancement du script
         su -u $user -c 'screen -dmS '$user'-'$command' '$command''
-        echo 'Le script a été lançé !'
+        echo 'Le daemon '$command' a été lançé !'
     ;;
 
     stop)
         # Placez ici les commandes à exécuter uniquement à l'arrêt du script
-        killall -u $user screen
-        echo 'Le script a été arrêté !'
+        killall -u $user $command
+        echo 'Le daemon '$command' a été arrêté !'
     ;;
 
     *)
         # On indique ici comment utiliser le script, c'est dans le cas où le script est appelé sans argument ou avec un argument invalide
-        echo 'Usage: /etc/init.d/$name {start|stop}'
+        echo 'Usage: /etc/init.d/'$command' {start|stop}'
         exit 1
     ;;
 esac
