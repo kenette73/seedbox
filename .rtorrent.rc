@@ -1,20 +1,62 @@
 scgi_port = 127.0.0.1:@port
-encoding_list = UTF-8
-port_range = 45000-65000
-port_random = no
-check_hash = no
-directory = /home/@user/torrents
-session = /home/@user/.session
+
+
+
+
 encryption = allow_incoming, try_outgoing, enable_retry
-schedule = watch_directory,1,1,"load_start=/home/@user/watch/*.torrent"
-schedule = untied_directory,5,5,"stop_untied=/home/@user/watch/*.torrent"
-schedule = espace_disque_insuffisant,1,30,close_low_diskspace=500M
-use_udp_trackers = yes
+
 dht = off
 peer_exchange = no
-min_peers = 40
-max_peers = 100
-min_peers_seed = 10
-max_peers_seed = 50
-max_uploads = 15
+
 execute = {sh,-c,/usr/bin/php @rutorrent/php/initplugins.php @user &}
+
+## BitTorrent ##
+
+max_downloads_global             = 0
+max_uploads_global               = 0
+min_peers                        = 40
+max_peers                        = 100
+min_peers_seed                   = 10
+max_peers_seed                   = 50
+max_uploads                      = 15
+download_rate                    = 0
+upload_rate                      = 0
+
+# ----------------------------------------------------------------------
+# Directories
+# ----------------------------------------------------------------------
+
+directory                        = /home/@user/torrents
+session                          = /home/@user/.session
+schedule                         = watch_directory,1,1,"load_start=/home/@user/watch/*.torrent"
+schedule                         = untied_directory,5,5,"stop_untied=/home/@user/watch/*.torrent"
+schedule                         = espace_disque_insuffisant,1,30,close_low_diskspace=500M
+encoding_list                    = UTF-8
+
+# ----------------------------------------------------------------------
+# Network
+# ----------------------------------------------------------------------
+
+port_range                       = 45000-65000
+scgi_local                       = /var/run/rtorrent/rpc.socket
+network.http.ssl_verify_peer.set = 0
+port_random                      = no
+use_udp_trackers                 = yes
+encryption                       = allow_incoming,enable_retry,prefer_plaintext
+network.max_open_files.set       = 65536
+network.max_open_sockets.set     = 1536
+network.http.max_open.set        = 48
+network.send_buffer.size.set     = 4M
+network.receive_buffer.size.set  = 4M
+network.xmlrpc.size_limit.set    = 4M
+dht                              = off
+dht_port                         = 6881
+peer_exchange                    = no
+
+# ----------------------------------------------------------------------
+# Hash
+# ----------------------------------------------------------------------
+
+check_hash                       = no
+pieces.preload.type.set          = 1
+max_memory_usage                 = 5000M
