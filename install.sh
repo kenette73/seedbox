@@ -31,16 +31,16 @@ apt-get install -y build-essential subversion autoconf automake curl gcc g++ rto
 
 # Création du fichier de configuration de rtorrent
 cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
-chown $$new_user:$new_user /home/$NEW_USER/.rtorrent.rc
+chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 sed -i 's/@user/"$new_user"/g' /home/$new_user/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$new_user/.rtorrent.rc
-sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
+#sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
 
 # Configuration de Rtorrent
-cp /tmp/seedbox/rtorrent $rtorrent
-chmod +x $rtorrent
+cp /tmp/seedbox/rtorrent /etc/init.d/
+chmod +x /etc/init.d/rtorrent
+sed -i 's/@user/"$new_user"/g' /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
-sed -i 's/@user/"$new_user"/g' $rtorrent
 
 # Configuration de apache
 a2enmod ssl proxy_scgi auth_digest
