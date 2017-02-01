@@ -10,23 +10,22 @@ upload_rate                      = 0
 
 ## Directories ##
 
-directory                        = /home/@user/torrents   # where torrent data is saved
+directory                        = /home/@user/torrents
 session                          = /home/@user/.session
 schedule                         = watch_directory,5,5,load_start=/home/@user/watch/*.torrent
 #schedule                         = untied_directory,5,5,stop_untied=/home/@user/watch/*.torrent
-schedule                         = schedule = low_diskspace,5,60,close_low_diskspace=100M
+#schedule                         = low_diskspace,5,60,close_low_diskspace=100M
 encoding_list                    = UTF-8
 
 ## Network ##
 
 port_range                       = 49192-49192
-scgi_local                       = /var/run/rtorrent/rpc.socket
-scgi_port                        = 127.0.0.1:@port
-network.http.ssl_verify_peer.set = 0
+scgi_local                       = 127.0.0.1:@port
+#scgi_port                        = 127.0.0.1:@port
 port_random                      = no
 use_udp_trackers                 = yes
 encryption                       = allow_incoming,try_outgoing,enable_retry
-dht                              = auto
+dht                              = off
 dht_port                         = 6881
 peer_exchange                    = yes
 
@@ -34,6 +33,6 @@ peer_exchange                    = yes
 
 check_hash                       = yes
 pieces.preload.type.set          = 6881
-max_memory_usage                 = 5000M
+#max_memory_usage                 = 5000M
 
 #execute = {sh,-c,/usr/bin/php @rutorrent/php/initplugins.php @user &}
