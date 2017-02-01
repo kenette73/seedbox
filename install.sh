@@ -11,36 +11,36 @@ apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main n
 sudo apt-get update
 
 # Création de l'utilisateur et des répertoires
-read -p 'Choisissez un nom d utilisateur:' NEW_USER
-useradd -m $NEW_USER
-passwd $NEW_USER
-mkdir -p /home/$NEW_USER/{watch,torrents,.session}
-chown -R $NEW_USER:$NEW_USER /home/$NEW_USER
-chmod -R 755 /home/$NEW_USER
+read -p 'Choisissez un nom d utilisateur:' new_user
+useradd -m $new_user
+passwd $new_user
+mkdir -p /home/$new_user/{watch,torrents,.session}
+chown -R $new_user:$new_user /home/$new_user
+chmod -R 755 /home/$new_user
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
 #service ssh reload
 
 # Include
-DIR="include"
-. "$DIR"/variables.sh
+dir="include"
+. "$dir"/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
 apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
 
 # Création du fichier de configuration de rtorrent
-cp /tmp/seedbox/.rtorrent.rc /home/$NEW_USER/.rtorrent.rc
-chown $NEW_USER:$NEW_USER /home/$NEW_USER/.rtorrent.rc
-sed -i 's/@user/'$NEW_USER'/g' /home/$NEW_USER/.rtorrent.rc
-sed -i 's/@port/5000/g' /home/$NEW_USER/.rtorrent.rc
-sed -i 's/@rutorrent/'$RUTORRENT'/g' /home/$NEW_USER/.rtorrent.rc
+cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
+chown $$new_user:$new_user /home/$NEW_USER/.rtorrent.rc
+sed -i 's/@user/"$new_user"/g' /home/$new_user/.rtorrent.rc
+sed -i 's/@port/5000/g' /home/$new_user/.rtorrent.rc
+sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
 
 # Configuration de Rtorrent
-cp /tmp/seedbox/rtorrent $RTORRENT
-chmod +x $RTORRENT
+cp /tmp/seedbox/rtorrent $rtorrent
+chmod +x $rtorrent
 update-rc.d rtorrent defaults 99
-sed -i 's/@user/'$NEW_USER'/g' $RTORRENT
+sed -i 's/@user/"$new_user"/g' $rtorrent
 
 # Configuration de apache
 a2enmod ssl proxy_scgi auth_digest
@@ -58,21 +58,21 @@ a2ensite rutorrent
 #cp /tmp/seedbox/config/ports.conf /etc/apache2/
 
 # Créations de l'utilisateur
-sudo htdigest -c /etc/apache2/.htpasswd rutorrent $NEW_USER
+sudo htdigest -c /etc/apache2/.htpasswd rutorrent $new_user
 
 # Redémarrage Apache2
 service apache2 restart
 
 # Installation de Rutorrent
-cd $WWW
+cd $www
 git clone https://github.com/Novik/ruTorrent rutorrent
-mkdir $CONF/$NEW_USER
-cp /tmp/seedbox/config/config.php $CONF/$NEW_USER/
-cp /tmp/seedbox/config/plugins.ini $CONF/$NEW_USER/
-sed -i 's/@user/'$NEW_USER'/g' $CONF/$NEW_USER/config.php
-sed -i 's/@port/5000/g' $CONF/$NEW_USER/config.php
-chown -R www-data:www-data $RUTORRENT
+mkdir $conf/$new_user
+cp /tmp/seedbox/config/config.php $conf/$new_user/
+cp /tmp/seedbox/config/plugins.ini $conf/$new_user/
+sed -i 's/@user/"$new_user"/g' $conf/$new_user/config.php
+sed -i 's/@port/5000/g' $conf/$new_user/config.php
+chown -R www-data:www-data $rutorrent
 chmod -R 755 $RUTORRENT
 
 #Démarrage de rtorrent
-service rtorrent start
+/etc/init.d/rtorrent start
