@@ -1,36 +1,64 @@
-#!/bin/sh   
+#!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          rtorrent
+# Provides:          Rtorrent
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start daemon at boot time
+# Short-Description: Demarrage du serveur Rtorrent
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
 ## Début configuration ##
 user="@user"
-command="rtorrent"
+screen_name="@user-rtorrent"
+daemon="rtorrent"
 ## Fin configuration ##
+
+## Fonction ##
+fonc_start(){
+        echo "Demarrage de $daemon !"
+        cd /home/"$user"
+        su kenette -c "screen -dmS $screen_name $daemon"
+}
+
+fonc_stop(){
+        echo "Arret de $daemon !"
+        killall -u "$user" "$daemon"
+}
+fonc_status(){
+        ps -u "$user" | grep -q "$daemon" ; echo "$?"
+}
+
+## Fin Fonction ##
 
 case "$1" in
     start)
-        # Placez ici les commandes à exécuter uniquement au lancement du script
-        su -u $user -c 'screen -dmS '$user'-'$command' '$command''
-        echo 'Le daemon '$command' a été lançé !'
-    ;;
+        if [ `fonc_status` = "0" ]
+         then echo "$daemon est deja en route !"
+         else fonc_start
+        fi
+;;
 
     stop)
-        # Placez ici les commandes à exécuter uniquement à l'arrêt du script
-        killall -u $user $command
-        echo 'Le daemon '$command' a été arrêté !'
-    ;;
+        if [ `fonc_status` = "0" ]
+         then fonc_stop
+         else echo "$daemon est deja arreter !"
+        fi
+;;
 
-    *)
+    status)
+        if [ `fonc_status` = "0" ]
+         then
+           echo "$daemon est en marche !"
+else
+           echo "$daemon est arreter !"
+        fi
+;;
+*)
         # On indique ici comment utiliser le script, c'est dans le cas où le script est appelé sans argument ou avec un argument invalide
-        echo 'Usage: /etc/init.d/'$command' {start|stop}'
+        echo 'Usage: /etc/init.d/rtorrent {start|stop|status}'
         exit 1
     ;;
 esac
