@@ -16,6 +16,7 @@ useradd -m $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
 chown -R $new_user:$new_user /home/$new_user
+chown root:$new_user /home/$new_user
 chmod -R 755 /home/$new_user
 
 # Interdiction connection ssh
@@ -27,13 +28,13 @@ dir="include"
 . "$dir"/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
-apt-get install -y build-essential subversion autoconf automake curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
+apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
 
 # Création du fichier de configuration de rtorrent
 cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
-chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 sed -i 's/@user/"$new_user"/g' /home/$new_user/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$new_user/.rtorrent.rc
+chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 #sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
 
 # Configuration de Rtorrent
