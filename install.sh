@@ -40,7 +40,7 @@ sed -i 's/@user/"$new_user"/g' /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
 
 # Configuration de apache
-a2enmod ssl proxy_scgi auth_digest scgi ssl
+a2enmod ssl proxy_scgi auth_digest scgi
 service apache2 restart
 
 # Création du certificat ssl
