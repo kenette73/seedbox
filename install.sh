@@ -40,7 +40,7 @@ sed -i 's/@user/"$new_user"/g' /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
 
 # Configuration de apache
-a2enmod ssl proxy_scgi auth_digest scgi
+a2enmod ssl auth_digest scgi
 service apache2 restart
 
 # Création du certificat ssl
@@ -54,7 +54,7 @@ a2ensite rutorrent
 #rm /etc/apache2/ports.conf
 #cp /tmp/seedbox/config/ports.conf /etc/apache2/
 
-# Créations de l'utilisateur
+# Création de l'utilisateur ruTorrent
 sudo htdigest -c /etc/apache2/.htpasswd rutorrent $new_user
 
 # Installation de Rutorrent
