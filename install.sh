@@ -11,13 +11,10 @@ apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main n
 sudo apt-get update
 
 # Création de l'utilisateur et des répertoires
-read -p 'Choisissez un nom d utilisateur:' new_user
+read -p "\033[32mChoisissez un nom d utilisateur:" new_user
 useradd -m $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
-chown -R $new_user:$new_user /home/$new_user
-chown root:$new_user /home/$new_user
-chmod -R 755 /home/$new_user
 
 # Interdiction connection ssh
 #Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
@@ -34,7 +31,6 @@ apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip 
 cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
 sed -i 's/@user/"$new_user"/g' /home/$new_user/.rtorrent.rc
 sed -i 's/@port/5000/g' /home/$new_user/.rtorrent.rc
-chown $new_user:$new_user /home/$new_user/.rtorrent.rc
 #sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
 
 # Configuration de Rtorrent
@@ -64,11 +60,16 @@ sudo htdigest -c /etc/apache2/.htpasswd rutorrent $new_user
 # Installation de Rutorrent
 cd /var/www/html
 git clone https://github.com/Novik/ruTorrent rutorrent
-mkdir /var/www/html/rutorrent/conf/users/$new_user
-cp /tmp/seedbox/config/config.php $conf/$new_user/
-cp /tmp/seedbox/config/plugins.ini $conf/$new_user/
-sed -i 's/@user/"$new_user"/g' $conf/$new_user/config.php
-sed -i 's/@port/5000/g' $conf/$new_user/config.php
+mkdir rutorrent/conf/users/$new_user
+cp /tmp/seedbox/config/users/* rutorrent/conf/users/$new_user/
+sed -i 's/@user/"$new_user"/g' rutorrent/conf/users/$new_user/config.php
+sed -i 's/@port/5000/g' rutorrent/conf/users/$new_user/config.php
+
+# Gestions des droits des fichiers & dossiers
+
+chown -R $new_user:$new_user /home/$new_user
+chown root:$new_user /home/$new_user
+chmod -R 755 /home/$new_user
 chown -R www-data:www-data /var/www/html/rutorrent
 chmod -R 755 /var/www/html/rutorrent
 
