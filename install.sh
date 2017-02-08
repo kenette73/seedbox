@@ -45,17 +45,22 @@ service apache2 restart
 
 # Création du certificat ssl
 mkdir /etc/apache2/ssl
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/rutorrent.pem -out /etc/apache2/ssl/rutorrent.pem
-chmod 600 /etc/apache2/ssl/rutorrent.pem
+openssl req \
+       -newkey rsa:2048 -nodes -keyout /etc/apache2/ssl/rutorrent.key \
+       -x509 -days 365 -out /etc/apache2/ssl/rutorrent.crt
+chmod 644 /etc/apache2/ssl/rutorrent.crt
+chmod 600 /etc/apache2/ssl/rutorrent.key
 
 # Accès Rutorrent
 cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/
+# remplacer l'ip dans le fichier par l'ip serveur
 a2ensite rutorrent
 #rm /etc/apache2/ports.conf
 #cp /tmp/seedbox/config/ports.conf /etc/apache2/
 
 # Création de l'utilisateur ruTorrent
-sudo htdigest -c /etc/apache2/.htpasswd rutorrent $new_user
+mkdir /etc/apache2/passwd
+sudo htdigest -c /etc/apache2/passwd/.rutorrent rutorrent $new_user
 
 # Installation de Rutorrent
 cd /var/www/html
