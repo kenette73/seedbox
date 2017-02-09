@@ -12,7 +12,7 @@ sudo apt-get update
 
 # Création de l'utilisateur et des répertoires
 read -p "\033[32mChoisissez un nom d utilisateur:" new_user
-useradd -m $new_user
+useradd -s /usr/sbin/nologin $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
 
@@ -22,6 +22,7 @@ mkdir -p /home/$new_user/{watch,torrents,.session}
 
 # Include
 dir="include"
+. "$dir"/fonctions.sh
 . "$dir"/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
@@ -52,7 +53,8 @@ chmod 644 /etc/apache2/ssl/rutorrent.crt
 chmod 600 /etc/apache2/ssl/rutorrent.key
 
 # Accès Rutorrent
-cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/
+cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/`
+sed -i 's/@ip/`get_ip`/g' /etc/apache2/sites-available/rutorrent.conf
 # remplacer l'ip dans le fichier par l'ip serveur
 a2ensite rutorrent
 #rm /etc/apache2/ports.conf
