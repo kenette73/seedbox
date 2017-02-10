@@ -55,7 +55,7 @@ chmod 644 /etc/apache2/ssl/rutorrent.crt
 chmod 600 /etc/apache2/ssl/rutorrent.key
 
 # Accès Rutorrent
-cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/`
+cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available
 sed -i "s/@ip/$get_ip/g" /etc/apache2/sites-available/rutorrent.conf
 a2ensite rutorrent
 
@@ -82,3 +82,5 @@ chmod -R 755 /var/www/html/rutorrent
 #Démarrage de rtorrent & Apache2
 /etc/init.d/rtorrent start
 service apache2 restart
+
+exit 0
