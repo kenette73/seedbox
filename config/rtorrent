@@ -20,7 +20,7 @@ daemon="rtorrent"
 fonc_start(){
         echo "Demarrage de $daemon !"
         cd /home/"$user"
-        su kenette -c "screen -dmS $screen_name $daemon"
+        su $user -c "screen -dmS $screen_name $daemon"
 }
 
 fonc_stop(){
