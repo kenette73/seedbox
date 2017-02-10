@@ -12,7 +12,7 @@ sudo apt-get update
 
 # Création de l'utilisateur et des répertoires
 read -p "Choisissez un nom d utilisateur:" new_user
-useradd -s /usr/sbin/nologin $new_user
+useradd -s /bin/bash $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
 
