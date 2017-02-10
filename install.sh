@@ -11,7 +11,7 @@ apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main n
 sudo apt-get update
 
 # Création de l'utilisateur et des répertoires
-read -p "\033[32mChoisissez un nom d utilisateur:" new_user
+read -p "Choisissez un nom d utilisateur:" new_user
 useradd -s /usr/sbin/nologin $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
@@ -22,26 +22,28 @@ mkdir -p /home/$new_user/{watch,torrents,.session}
 
 # Include
 dir="include"
-. "$dir"/fonctions.sh
 . "$dir"/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
-apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
+apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip \
+                   apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
 
 # Création du fichier de configuration de rtorrent
-cp /tmp/seedbox/.rtorrent.rc /home/$new_user/.rtorrent.rc
-sed -i 's/@user/"$new_user"/g' /home/$new_user/.rtorrent.rc
-sed -i 's/@port/5000/g' /home/$new_user/.rtorrent.rc
-#sed -i 's/@rutorrent/"$rutorrent"/g' /home/$new_user/.rtorrent.rc
+cd /home/$new_user
+cp /tmp/seedbox/config/.rtorrent.rc /home/$new_user/
+sed -i "s/@user/$new_user/g" .rtorrent.rc
+sed -i "s/@port/5000/g" .rtorrent.rc
 
 # Configuration de Rtorrent
-cp /tmp/seedbox/rtorrent /etc/init.d/
+cp /tmp/seedbox/config/rtorrent /etc/init.d/
 chmod +x /etc/init.d/rtorrent
-sed -i 's/@user/"$new_user"/g' /etc/init.d/rtorrent
+sed -i "s/@user/$new_user/g" /etc/init.d/rtorrent
 update-rc.d rtorrent defaults 99
 
 # Configuration de apache
 a2enmod ssl auth_digest scgi
+echo "SCGIMount /RCP2 127.0.0.1:5000" >> /etc/apache2/apache2.conf
+echo "servername localhost" >> /etc/apache2/apache2.conf
 service apache2 restart
 
 # Création du certificat ssl
@@ -54,11 +56,8 @@ chmod 600 /etc/apache2/ssl/rutorrent.key
 
 # Accès Rutorrent
 cp /tmp/seedbox/config/rutorrent.conf /etc/apache2/sites-available/`
-sed -i 's/@ip/`get_ip`/g' /etc/apache2/sites-available/rutorrent.conf
-# remplacer l'ip dans le fichier par l'ip serveur
+sed -i "s/@ip/$get_ip/g" /etc/apache2/sites-available/rutorrent.conf
 a2ensite rutorrent
-#rm /etc/apache2/ports.conf
-#cp /tmp/seedbox/config/ports.conf /etc/apache2/
 
 # Création de l'utilisateur ruTorrent
 mkdir /etc/apache2/passwd
@@ -69,8 +68,8 @@ cd /var/www/html
 git clone https://github.com/Novik/ruTorrent rutorrent
 mkdir rutorrent/conf/users/$new_user
 cp /tmp/seedbox/config/users/* rutorrent/conf/users/$new_user/
-sed -i 's/@user/"$new_user"/g' rutorrent/conf/users/$new_user/config.php
-sed -i 's/@port/5000/g' rutorrent/conf/users/$new_user/config.php
+sed -i "s/@user/$new_user/g" rutorrent/conf/users/$new_user/config.php
+sed -i "s/@port/5000/g" rutorrent/conf/users/$new_user/config.php
 
 # Gestions des droits des fichiers & dossiers
 
