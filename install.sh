@@ -16,17 +16,14 @@ useradd -s /bin/bash $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
 
-# Interdiction connection ssh
-#Ajouter DenyUsers $new_user à /etc/ssh/sshd_config
-#service ssh reload
-
 # Include
 dir="include"
 . "$dir"/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
 apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip \
-                   apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5
+                   apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5 \
+                   pure-ftpd
 
 # Création du fichier de configuration de rtorrent
 cd /home/$new_user
@@ -71,16 +68,28 @@ cp /tmp/seedbox/config/users/* rutorrent/conf/users/$new_user/
 sed -i "s/@user/$new_user/g" rutorrent/conf/users/$new_user/config.php
 sed -i "s/@port/5000/g" rutorrent/conf/users/$new_user/config.php
 
-# Gestions des droits des fichiers & dossiers
+# Suppression des thèmes
+cd/var/www/html/plugins/theme/themes
+rm -R {Acid,Blue,Dark,Excel}
 
+# Gestions des droits des fichiers & dossiers
 chown -R $new_user:$new_user /home/$new_user
 chown root:$new_user /home/$new_user
 chmod -R 755 /home/$new_user
 chown -R www-data:www-data /var/www/html/rutorrent
 chmod -R 755 /var/www/html/rutorrent
 
-#Démarrage de rtorrent & Apache2
+# Configurations du serveur FTP
+useradd -g ftpgroup -d /dev/null -s /usr/sbin/nologin ftpuser
+ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/75puredb
+
+# Création de l'utilisateur FTP
+pure-pw useradd $new_user -u ftpuser -g ftpgroup -d /home/$new_user/torrents
+pure-pw mkdb
+
+#Démarrage de rtorrent & Apache2 & Pure-ftpd
 /etc/init.d/rtorrent start
 service apache2 restart
+/etc/init.d/pure-ftpd restart
 
 exit 0
