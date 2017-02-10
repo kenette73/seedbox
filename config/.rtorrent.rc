@@ -20,8 +20,8 @@ encoding_list                    = UTF-8
 ## Network ##
 
 port_range                       = 49192-49192
-scgi_local                       = 127.0.0.1:@port
-#scgi_port                        = 127.0.0.1:@port
+#scgi_local                       = 127.0.0.1:@port
+scgi_port                        = 127.0.0.1:@port
 port_random                      = no
 use_udp_trackers                 = yes
 encryption                       = allow_incoming,try_outgoing,enable_retry
@@ -34,5 +34,3 @@ peer_exchange                    = yes
 check_hash                       = yes
 pieces.preload.type.set          = 6881
 #max_memory_usage                 = 5000M
-
-#execute = {sh,-c,/usr/bin/php @rutorrent/php/initplugins.php @user &}
