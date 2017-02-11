@@ -10,19 +10,19 @@ apt-add-repository "deb http://mirrors.online.net/debian jessie-backports main n
 # Vérifications des mise à jour
 sudo apt-get update
 
+# Installations des paquets nécessaires à Rtorrent et Rutorrent
+apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip \
+                   apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5 \
+                   pure-ftpd
+
+# Include
+source ./include/variables.sh
+
 # Création de l'utilisateur et des répertoires
 read -p "Choisissez un nom d utilisateur:" new_user
 useradd -s /bin/bash $new_user
 passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
-
-# Include
-source ./include/variables.sh
-
-# Installations des paquets nécessaires à Rtorrent et Rutorrent
-apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip \
-                   apache2 apache2.2-common apache2-utils libapache2-mod-scgi libapache2-mod-php5 \
-                   pure-ftpd
 
 # Création du fichier de configuration de rtorrent
 cd /home/$new_user
@@ -68,7 +68,7 @@ sed -i "s/@user/$new_user/g" rutorrent/conf/users/$new_user/config.php
 sed -i "s/@port/5000/g" rutorrent/conf/users/$new_user/config.php
 
 # Suppression des thèmes
-cd /var/www/html/plugins/theme/themes
+cd /var/www/html/rutorrent/plugins/theme/themes
 rm -R {Acid,Blue,Dark,Excel}
 
 # Gestions des droits des fichiers & dossiers
