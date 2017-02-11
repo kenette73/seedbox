@@ -81,6 +81,7 @@ chmod -R 755 /var/www/html/rutorrent
 # Configurations du serveur FTP
 groupadd ftpgroup
 useradd -g ftpgroup -d /dev/null -s /usr/sbin/nologin ftpuser
+sudo ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/50pure
 ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/75puredb
 
 # Création de l'utilisateur FTP
