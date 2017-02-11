@@ -17,8 +17,7 @@ passwd $new_user
 mkdir -p /home/$new_user/{watch,torrents,.session}
 
 # Include
-dir="include"
-. "$dir"/variables.sh
+source ./include/variables.sh
 
 # Installations des paquets nécessaires à Rtorrent et Rutorrent
 apt-get install -y build-essential subversion curl gcc g++ rtorrent screen gzip mediainfo ffmpeg unrar zip \
@@ -39,8 +38,8 @@ update-rc.d rtorrent defaults 99
 
 # Configuration de apache
 a2enmod ssl auth_digest scgi
-echo "SCGIMount /RCP2 127.0.0.1:5000" >> /etc/apache2/apache2.conf
 echo "servername localhost" >> /etc/apache2/apache2.conf
+echo "SCGIMount /RCP2 127.0.0.1:5000" >> /etc/apache2/apache2.conf
 service apache2 restart
 
 # Création du certificat ssl
@@ -69,7 +68,7 @@ sed -i "s/@user/$new_user/g" rutorrent/conf/users/$new_user/config.php
 sed -i "s/@port/5000/g" rutorrent/conf/users/$new_user/config.php
 
 # Suppression des thèmes
-cd/var/www/html/plugins/theme/themes
+cd /var/www/html/plugins/theme/themes
 rm -R {Acid,Blue,Dark,Excel}
 
 # Gestions des droits des fichiers & dossiers
@@ -80,6 +79,7 @@ chown -R www-data:www-data /var/www/html/rutorrent
 chmod -R 755 /var/www/html/rutorrent
 
 # Configurations du serveur FTP
+groupadd ftpgroup
 useradd -g ftpgroup -d /dev/null -s /usr/sbin/nologin ftpuser
 ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/75puredb
 
