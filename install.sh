@@ -56,6 +56,7 @@ sed -i "s/@ip/$get_ip/g" /etc/apache2/sites-available/rutorrent.conf
 a2ensite rutorrent
 
 # Création de l'utilisateur ruTorrent
+echo "Choisissez un mot de passe pour vous connecter à l'interface de ruTorrent""
 mkdir /etc/apache2/passwd
 sudo htdigest -c /etc/apache2/passwd/.rutorrent rutorrent $new_user
 
@@ -85,6 +86,7 @@ sudo ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/50pure
 ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/75puredb
 
 # Création de l'utilisateur FTP
+echo "Choisissez un mot de passe pour votre compte FTP"
 pure-pw useradd $new_user -u ftpuser -g ftpgroup -d /home/$new_user/torrents
 pure-pw mkdb
 
