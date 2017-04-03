@@ -56,7 +56,7 @@ sed -i "s/@ip/$get_ip/g" /etc/apache2/sites-available/rutorrent.conf
 a2ensite rutorrent
 
 # Création de l'utilisateur ruTorrent
-echo "Choisissez un mot de passe pour vous connecter à l'interface de ruTorrent""
+echo "Choisissez un mot de passe pour vous connecter à l'interface de ruTorrent"
 mkdir /etc/apache2/passwd
 sudo htdigest -c /etc/apache2/passwd/.rutorrent rutorrent $new_user
 
