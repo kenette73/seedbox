@@ -76,7 +76,7 @@ rm -R {Acid,Blue,Dark,Excel}
 chown -R $new_user:$new_user /home/$new_user
 chown root:$new_user /home/$new_user
 chmod -R 755 /home/$new_user
-chown -R www-data:www-data /var/www/html/rutorrent
+chown -R root:www-data /var/www/html/rutorrent
 chmod -R 755 /var/www/html/rutorrent
 
 # Configurations du serveur FTP
